@@ -52,6 +52,16 @@ sudo apt install -y --no-upgrade cifs-utils ntfs-3g exfatprogs exfat-fuse gvfs g
 # Fontes adicionais
 sudo apt install -y --no-upgrade fonts-adobe-sourcesans3 fonts-noto fonts-firacode fonts-open-sans fonts-roboto fonts-ubuntu
 
+# Atualizar cache
+sudo fc-cache -f -v
+
+# Adwaita
+sudo apt install -y --no-upgrade adwaita-icon-theme
+
+# GNOME Shell
+sudo apt install -y --no-upgrade gnome-shell-extensions-common gnome-tweaks
+
+#
 
 # Fim
 exit
