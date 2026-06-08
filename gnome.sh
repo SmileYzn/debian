@@ -65,13 +65,47 @@ fc-cache -f -v
 apt install -y --no-upgrade adwaita-icon-theme gnome-shell-extensions-common gnome-sushi gnome-tweaks
 
 # GNOME Core Apps
-apt install -y --no-upgrade e baobab dconf-editor decibels file-roller gnome-backgrounds gnome-calculator gnome-calendar gnome-characters gnome-disk-utility gnome-font-viewer gnome-online-accounts gnome-system-monitor loupe seahorse showtime simple-scan
+apt install -y --no-upgrade baobab dconf-editor file-roller gnome-backgrounds gnome-calculator gnome-calendar gnome-characters gnome-disk-utility gnome-font-viewer gnome-online-accounts gnome-system-monitor loupe seahorse showtime simple-scan
 
 # NAUTILUS
 apt install -y --no-upgrade seahorse-nautilus
 
 # Firefox
 apt install -y --no-upgrade firefox-esr firefox-esr-l10n-pt-br
+
+# Adicionar grupo autologin
+sudo groupadd -r autologin
+
+# Adicionar o usuário ao grupo
+sudo gpasswd autologin -a ${USUARIO}
+
+# Abrir pasta do usuário
+cd /home/$USUARIO
+
+# Criar pastas padrão
+xdg-user-dirs-update
+
+# Criar pastas
+mkdir Desktop Documentos Downloads Imagens Modelos Músicas Projetos Rede Vídeos
+
+# Permissões
+sudo chown -R $USUARIO:$USUARIO Desktop Downloads Modelos Rede Documentos Músicas Imagens Vídeos
+
+xdg-user-dirs-update --force --set DESKTOP /home/$USUARIO/Desktop
+xdg-user-dirs-update --force --set DOCUMENTS /home/$USUARIO/Documentos
+xdg-user-dirs-update --force --set DOWNLOAD /home/$USUARIO/Downloads
+xdg-user-dirs-update --force --set PICTURES /home/$USUARIO/Imagens
+xdg-user-dirs-update --force --set TEMPLATES /home/$USUARIO/Modelos
+xdg-user-dirs-update --force --set MUSIC /home/$USUARIO/Músicas
+xdg-user-dirs-update --force --set PROJECTS /home/$USUARIO/Projetos
+xdg-user-dirs-update --force --set PUBLICSHARE /home/$USUARIO/Rede
+xdg-user-dirs-update --force --set VIDEOS /home/$USUARIO/Vídeos
+
+# Atualizar pastas padrão
+xdg-user-dirs-update
+
+# Remover pastas antigas
+rm -rf Documents Music Pictures Public Projects Templates Videos
 
 # Fim
 exit 0
