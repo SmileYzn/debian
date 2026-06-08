@@ -41,7 +41,7 @@ apt update
 apt full-upgrade -y
 
 # Pacotes Base
-apt install -y --no-upgrade 7zip alsa-firmware bash-completion curl fastfetch firmware-linux fwupd ffmpegthumbnailer git man-db power-profiles-daemon powertop unace unzip unrar wget xz-utils zip
+apt install -y --no-upgrade 7zip alsa-firmware bash-completion curl fastfetch firmware-linux fwupd ffmpegthumbnailer git intel-microcode man-db power-profiles-daemon powertop unace unzip unrar wget xz-utils zip
 
 # Pacotes XDG 
 apt install -y --no-upgrade xdg-user-dirs-gtk xdg-desktop-portal-gnome xdg-utils
@@ -63,6 +63,9 @@ fc-cache -f -v
 
 # GNOME Shell
 apt install -y --no-upgrade adwaita-icon-theme gnome-shell-extensions-common gnome-sushi gnome-tweaks
+
+# GNOME Core Apps
+apt install -y --no-upgrade e baobab dconf-editor decibels file-roller gnome-backgrounds gnome-calculator gnome-calendar gnome-characters gnome-disk-utility gnome-font-viewer gnome-online-accounts gnome-system-monitor loupe seahorse showtime simple-scan
 
 # NAUTILUS
 apt install -y --no-upgrade seahorse-nautilus
