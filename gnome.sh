@@ -34,8 +34,24 @@ sudo apt update
 # Atualizar Sistema
 sudo apt upgrade -y
 
-# ??
-sudo apt install -y git
+# Pacotes Base
+sudo apt install -y --no-upgrade 7zip alsa-firmware bash-completion fastfetch fwupd ffmpegthumbnailer git man-db power-profiles-daemon powertop unace unzip unrar xz-utils zip
+
+# Pacotes XDG 
+sudo apt install -y --no-upgrade xdg-user-dirs-gtk xdg-desktop-portal-gnome xdg-utils
+
+# Bluetoth, CUPS
+sudo apt install -y --no-upgrade bluez cups
+
+# Bluetoth, CUPS
+sudo systemctl enable bluetooth cups touchegg
+
+# NTFS, CIFS, GVFS, EXFAT
+sudo apt install -y --no-upgrade cifs-utils ntfs-3g exfatprogs exfat-fuse gvfs gvfs-backends gvfs-fuse
+
+# Fontes adicionais
+sudo apt install -y --no-upgrade fonts-adobe-sourcesans3 fonts-noto fonts-firacode fonts-open-sans fonts-roboto fonts-ubuntu
+
 
 # Fim
 exit
