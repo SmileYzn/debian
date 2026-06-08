@@ -55,13 +55,14 @@ sudo apt install -y --no-upgrade fonts-adobe-sourcesans3 fonts-noto fonts-firaco
 # Atualizar cache
 sudo fc-cache -f -v
 
-# Adwaita
-sudo apt install -y --no-upgrade adwaita-icon-theme
-
 # GNOME Shell
-sudo apt install -y --no-upgrade gnome-shell-extensions-common gnome-tweaks
+sudo apt install -y --no-upgrade adwaita-icon-theme gnome-shell-extensions-common gnome-sushi gnome-tweaks
 
-#
+# NAUTILUS
+sudo apt install -y --no-upgrade seahorse-nautilus
+
+# Firefox
+sudo apt install -y --no-upgrade firefox-esr firefox-esr-l10n-pt-br
 
 # Fim
 exit
