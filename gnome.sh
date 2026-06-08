@@ -38,7 +38,7 @@ fi
 apt update
 
 # Atualizar Sistema
-apt upgrade -y
+apt full-upgrade -y
 
 # Pacotes Base
 apt install -y --no-upgrade 7zip alsa-firmware bash-completion curl fastfetch firmware-linux fwupd ffmpegthumbnailer git man-db power-profiles-daemon powertop unace unzip unrar wget xz-utils zip
