@@ -3,17 +3,23 @@
 # Limpar
 clear
 
-# Usuário padrão (UID 1000)
-USUARIO=$(id -nu 1000)
-
-# Abrir pasta do usuário padrão da instalação debian
-cd /home/$USUARIO
-
 # Verificar se quem executou o script foi o usuário root
 if [ "$(id -u)" -ne 0 ]; then
     echo -e "Esse script DEVE ser executado com o usuário root"
     exit 1
 fi
+
+# Usuário padrão (UID 1000)
+USUARIO=$(id -nu 1000 2>/dev/null)
+
+# Abrir pasta do usuário padrão da instalação Debian
+if [ -z "$USUARIO" ]; then
+    echo "Não foi possível localizar o usuário UID 1000."
+    exit 1
+fi
+
+# Abre a pasta, ou sair se a pasta do usuário não existir
+cd "/home/$USUARIO" || exit 1
 
 # Adicionar contrib non-free-firmware
 set -e
