@@ -46,11 +46,11 @@ apt install -y --no-upgrade 7zip alsa-firmware bash-completion curl fastfetch fi
 # Pacotes XDG 
 apt install -y --no-upgrade xdg-user-dirs-gtk xdg-desktop-portal-gnome xdg-utils
 
-# Bluetoth, CUPS
-apt install -y --no-upgrade bluez cups
+# Bluetoth
+apt install -y --no-upgrade bluez
 
-# Bluetoth, CUPS
-systemctl enable bluetooth cups
+# Bluetoth
+systemctl enable bluetooth
 
 # NTFS, CIFS, GVFS, EXFAT
 apt install -y --no-upgrade cifs-utils ntfs-3g exfatprogs exfat-fuse gvfs gvfs-backends gvfs-fuse
