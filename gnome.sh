@@ -4,8 +4,13 @@
 clear
 
 # Verificar se quem executou o script foi o usuário root
-if [ "$(id -u)" -ne 0 ]; then
-    echo -e "Esse script DEVE ser executado com o usuário root"
+if [ "$(id -u)" -eq 0 ]; then
+    echo -e "Não execute esse script como usuário root."
+    exit 1
+fi
+
+if ! command -v sudo >/dev/null 2>&1; then
+    echo "O pacote sudo não está instalado."
     exit 1
 fi
 
@@ -25,59 +30,56 @@ cd "/home/$USUARIO" || exit 1
 set -e
 
 if [ -f /etc/apt/sources.list.d/debian.sources ]; then
-    sed -i \
+    sudo sed -i \
         's/^Components:.*/Components: main contrib non-free non-free-firmware/' \
         /etc/apt/sources.list.d/debian.sources
 else
-    sed -Ei \
+    sudo sed -Ei \
         's#^(deb(-src)? .+ trixie(-security|-updates)? main).*$#\1 contrib non-free non-free-firmware#' \
         /etc/apt/sources.list
 fi
 
 # Atualizar Respositórios
-apt update
+sudo apt update
 
 # Atualizar Sistema
-apt full-upgrade -y
+sudo apt full-upgrade -y
 
 # Pacotes Base
-apt install -y --no-upgrade 7zip alsa-firmware bash-completion curl fastfetch firmware-linux fwupd ffmpegthumbnailer git intel-microcode man-db power-profiles-daemon powertop unace unzip unrar wget xz-utils zip
+sudo apt install -y --no-upgrade 7zip alsa-firmware bash-completion curl fastfetch firmware-linux fwupd ffmpegthumbnailer git intel-microcode man-db power-profiles-daemon powertop unace unzip unrar wget xz-utils zip
 
 # Pacotes XDG 
-apt install -y --no-upgrade xdg-user-dirs-gtk xdg-desktop-portal-gnome xdg-utils
+sudo apt install -y --no-upgrade xdg-user-dirs-gtk xdg-desktop-portal-gnome xdg-utils
 
 # Bluetoth
-apt install -y --no-upgrade bluez
+sudo apt install -y --no-upgrade bluez
 
 # Bluetoth
-systemctl enable bluetooth
+sudo systemctl enable bluetooth
 
 # NTFS, CIFS, GVFS, EXFAT
-apt install -y --no-upgrade cifs-utils ntfs-3g exfatprogs exfat-fuse gvfs gvfs-backends gvfs-fuse
+sudo apt install -y --no-upgrade cifs-utils ntfs-3g exfatprogs exfat-fuse gvfs gvfs-backends gvfs-fuse
 
 # Fontes adicionais
-apt install -y --no-upgrade fonts-adobe-sourcesans3 fonts-noto fonts-firacode fonts-open-sans fonts-roboto fonts-ubuntu
-
-# Atualizar cache
-fc-cache -f -v
+sudo apt install -y --no-upgrade fonts-adobe-sourcesans3 fonts-noto fonts-firacode fonts-open-sans fonts-roboto fonts-ubuntu
 
 # GNOME Shell
-apt install -y --no-upgrade adwaita-icon-theme gnome-shell-extensions-common gnome-sushi gnome-tweaks
+sudo apt install -y --no-upgrade adwaita-icon-theme gnome-shell-extensions-common gnome-sushi gnome-tweaks
 
 # GNOME Core Apps
-apt install -y --no-upgrade baobab dconf-editor file-roller gnome-backgrounds gnome-calculator gnome-calendar gnome-characters gnome-disk-utility gnome-font-viewer gnome-online-accounts gnome-system-monitor loupe seahorse showtime simple-scan
+sudo apt install -y --no-upgrade baobab dconf-editor file-roller gnome-backgrounds gnome-calculator gnome-calendar gnome-characters gnome-disk-utility gnome-font-viewer gnome-online-accounts gnome-system-monitor loupe seahorse showtime simple-scan
 
 # NAUTILUS
-apt install -y --no-upgrade seahorse-nautilus
+sudo apt install -y --no-upgrade seahorse-nautilus
 
 # Firefox
-apt install -y --no-upgrade firefox-esr firefox-esr-l10n-pt-br
+sudo apt install -y --no-upgrade firefox-esr firefox-esr-l10n-pt-br
 
 # Adicionar grupo autologin
-sudo groupadd -r autologin
+sudo sudo groupadd -r autologin
 
 # Adicionar o usuário ao grupo
-sudo gpasswd autologin -a ${USUARIO}
+sudo sudo gpasswd autologin -a ${USUARIO}
 
 # Abrir pasta do usuário
 cd /home/$USUARIO
@@ -87,9 +89,6 @@ xdg-user-dirs-update
 
 # Criar pastas
 mkdir Desktop Documentos Downloads Imagens Modelos Músicas Projetos Rede Vídeos
-
-# Permissões
-sudo chown -R $USUARIO:$USUARIO Desktop Downloads Modelos Rede Documentos Músicas Imagens Vídeos
 
 xdg-user-dirs-update --force --set DESKTOP /home/$USUARIO/Desktop
 xdg-user-dirs-update --force --set DOCUMENTS /home/$USUARIO/Documentos
